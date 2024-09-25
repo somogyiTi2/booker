@@ -1,9 +1,9 @@
-
+import BookingList from "./components/BookingList"
 
 function App() {
   return (
     <div >
-      Hello World!
+      <BookingList/>
     </div>
   );
 }

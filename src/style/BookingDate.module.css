@@ -1,0 +1,13 @@
+.bookingButton {
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    color: white; /* Text color */
+    font-size: 16px;
+    cursor: pointer;
+ 
+}
+
+.bookingButton:hover {
+    opacity: 0.9; /* Slightly fade button on hover */
+}

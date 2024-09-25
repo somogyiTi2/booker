@@ -1,0 +1,8 @@
+/* BookingList.module.css */
+.bookingList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between buttons */
+    padding: 20px; /* Padding around the list */
+}
+
