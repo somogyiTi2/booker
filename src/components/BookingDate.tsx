@@ -10,7 +10,6 @@ const BookingDate = (props: { data: DateDataType }) => {
             <span>
                 {new Intl.DateTimeFormat("hu-HU", { dateStyle: 'full' }).format(appointment.date)}
             </span>
-            <span> </span>
             <span>
                 {new Intl.DateTimeFormat("hu-HU", { hour: '2-digit', minute: "2-digit" }).format(appointment.date)}
             </span>
