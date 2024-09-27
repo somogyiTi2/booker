@@ -50,12 +50,12 @@ const dummy_data: DateDataType[] = [
     }
 ];
 
-const BookingList = () => {
-    const today = new Date();
+const BookingList: React.FC<{ date: Date }> = ({ date }) => {
+    const promptDate: Date = date
     const [visibleDates, setVisibleDates] = useState<{ date: Date }[]>([]);
     const numberOfDays = 3;
 
-    const makeDays = (many: number) => {
+    const makeDays = (many: number, today: Date) => {
         const genDate: { date: Date }[] = [];
         for (let i = 0; i < many; i++) {
             const datagen = new Date(today);
@@ -66,8 +66,8 @@ const BookingList = () => {
     };
 
     useEffect(() => {
-        makeDays(numberOfDays);
-    }, [numberOfDays]);
+        makeDays(numberOfDays, promptDate);
+    }, [numberOfDays, promptDate]);
 
     const selectedTime = (dates: DateDataType[], selectedDate: Date): DateDataType[] => {
         return dates.filter((data) =>
@@ -81,7 +81,7 @@ const BookingList = () => {
         <div className={styles.bookingList}>
             {visibleDates.map((day, index) => (
                 <div key={index} className={styles.bookingDayList}>
-                     {day.date.toDateString()}
+                    {day.date.toDateString()}
                     <p>
                         {selectedTime(dummy_data, day.date).map((data) => (
                             <BookingDate key={data.date.toISOString()} data={data} />

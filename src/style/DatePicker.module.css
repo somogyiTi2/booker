@@ -1,0 +1,53 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.arrow-btn {
+    background-color: #5c5c5c;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+    border-radius: 5px;
+    margin: 0 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.arrow-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+.left {
+    border-radius: 50px 0 0 50px;
+}
+
+.right {
+    border-radius: 0 50px 50px 0;
+}
+
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.calendar-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    padding-top: 10px;
+
+}
+
+.calendar-icon:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+    filter: invert(8%) sepia(97%) saturate(7488%) hue-rotate(73deg) brightness(92%) contrast(114%);
+}
+
