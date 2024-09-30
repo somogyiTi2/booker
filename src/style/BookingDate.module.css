@@ -10,8 +10,11 @@
     margin: 10px 0;
     flex-direction: column;
     align-items: center;
+    opacity: 1;
+    transition: padding 1s ease, opacity 1s ease;
 }
 
 .bookingButton:hover {
+    padding: 12px;
     opacity: 0.9;
 }

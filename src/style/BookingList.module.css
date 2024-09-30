@@ -4,10 +4,17 @@
     gap: 10px;
     padding: 20px;
     justify-content: center;
+
 }
 
 .bookingDayList {
-    background-color: red;
+    background-color: rgb(60, 255, 0, 50%);
     text-align: center;
-    padding:10px
+    padding: 10px;
+    transition: background-color 1s ease;
+}
+
+.bookingDayList:hover {
+    background-color: rgb(60, 255, 0, 70%);
+    ;
 }

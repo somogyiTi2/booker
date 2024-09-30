@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
 }
 
 .arrow-btn {
@@ -39,14 +38,15 @@
 }
 
 .calendar-icon {
-    font-size: 48px;
+    font-size: 42px;
     margin-bottom: 20px;
     padding-top: 10px;
-
+    filter:none;
+    transition:  font-size 1s ease;
 }
 
 .calendar-icon:hover {
-    transform: scale(1.1);
+    font-size: 50px;
     opacity: 0.8;
     filter: invert(8%) sepia(97%) saturate(7488%) hue-rotate(73deg) brightness(92%) contrast(114%);
 }
