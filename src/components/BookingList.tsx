@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { DateDataType } from '../type/dataType';
 import BookingDate from './BookingDate';
 import styles from '../style/BookingList.module.css';
+import { DateDataType } from '../type/DataType';
 
 const dummy_data: DateDataType[] = [
     {
@@ -50,10 +50,10 @@ const dummy_data: DateDataType[] = [
     }
 ];
 
-const BookingList: React.FC<{ date: Date }> = ({ date }) => {
+const BookingList: React.FC<{ date: Date, numberofDays: number }> = ({ date, numberofDays }) => {
     const promptDate: Date = date
     const [visibleDates, setVisibleDates] = useState<{ date: Date }[]>([]);
-    const numberOfDays = 3;
+    const numberOfDays = numberofDays;
 
     const makeDays = (many: number, today: Date) => {
         const genDate: { date: Date }[] = [];

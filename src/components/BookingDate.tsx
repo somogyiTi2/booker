@@ -1,4 +1,4 @@
-import { DateDataType } from "../type/dataType";
+import { DateDataType } from "../type/DataType";
 import styles from '../style/BookingDate.module.css';
 
 const BookingDate = (props: { data: DateDataType }) => {

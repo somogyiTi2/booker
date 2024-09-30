@@ -1,9 +1,10 @@
-import DatePicker from "./components/DatePicker";
+import BookingComponet from "./components/BookingComponet";
 
 function App() {
+
   return (
     <div >
-      <DatePicker/>
+      <BookingComponet />
     </div>
   );
 }
