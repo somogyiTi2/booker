@@ -1,0 +1,31 @@
+.error {
+    color: red
+}
+
+.formActions {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+
+    label,
+    p {
+        display: flex;
+        justify-content: center;
+    }
+
+    input {
+        border: 1px solid rgb(177, 253, 241);
+        border-radius: 4px;
+    }
+}
+
+.errorData {
+    background-color: rgb(255, 203, 203);
+    border: 2px solid red !important;
+}
