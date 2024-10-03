@@ -1,16 +1,33 @@
-import React, { useState, ChangeEvent, FormEvent, FocusEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, FocusEvent, useEffect } from 'react';
 import style from "../style/Form.module.css";
+import ModalWindow from './ModalWindow';
+import SaveDataModal from './SaveDataModal';
 
 const Form = () => {
+    let [showWindow, setShowWindow] = useState(true)
+
+    const onClose = () => {
+        setShowWindow(false);
+    }
+    /*Can I save or not the datas*/
+    const [saveData, setSaveData] = useState<boolean | null>(null);
+    /*can I need open the data save window*/
+    const [saveDataModalShow, setSaveDataModalShow] = useState<boolean>(false);
+
     /*name*/
-    const [enteredName, setEnteredName] = useState<string>('');
+    const name = localStorage.getItem('name');
+    const [enteredName, setEnteredName] = useState<string>(name || '');
     const [enteredNameTouched, setEnteredNameTouched] = useState<boolean>(false);
     /*email*/
-    const [enteredEmail, setEnteredEmail] = useState<string>('');
+    const email = localStorage.getItem('email');
+    const [enteredEmail, setEnteredEmail] = useState<string>(email || '');
     const [enteredEmailTouched, setEnteredEmailTouched] = useState<boolean>(false);
     /*phone*/
-    const [enteredPhone, setEnteredPhone] = useState<string>('');
+    const phone = localStorage.getItem('phone');
+    const [enteredPhone, setEnteredPhone] = useState<string>(phone || '');
     const [enteredPhoneTouched, setEnteredPhoneTouched] = useState<boolean>(false);
+    /*need save window or not*/
+    const needWindow = name && email && phone ? false : true;
 
     // Handle input change event
     /*name*/
@@ -69,67 +86,92 @@ const Form = () => {
     const formSubmitHandler = (event: FormEvent) => {
         event.preventDefault();
         setEnteredNameTouched(true);
-        console.log(enteredName)
+        setSaveDataModalShow(needWindow)
+        needWindow === false && onClose()
         if (!enteredNameIsValid && !enteredEmailIsValid && !enteredPhoneIsValid) {
             return; // Do not proceed if the form is invalid
         }
-
         // Reset the form after submission
-        setEnteredName('');
-        setEnteredEmail('');
-        setEnteredPhone('');
+        console.log("You signed up with these data:", enteredEmail, enteredName, enteredPhone);
         setEnteredNameTouched(false);
         setEnteredEmailTouched(false);
         setEnteredPhoneTouched(false);
     };
 
+    useEffect(() => {
+        if (saveData === true) {
+            saveDataHandler();
+            onClose()
+        }
+        if (saveData === false) {
+            setEnteredName('');
+            setEnteredEmail('');
+            setEnteredPhone('');
+            onClose()
+        }
+
+    }, [formSubmitHandler, saveData])
+
+
+    const saveDataHandler = () => {
+        localStorage.setItem('name', enteredName);
+        localStorage.setItem('email', enteredEmail);
+        localStorage.setItem('phone', enteredPhone);
+    }
+
 
     return (
-        <form onSubmit={formSubmitHandler} className={style.form}>
-            <label htmlFor='name'>Your Name:</label>
-            <input
-                className={nameInputIsInvalid ? style.errorData : ''}
-                type='text'
-                id='name'
-                onChange={nameInputChangeHandler}
-                onBlur={nameInputBlurHandler}
-                value={enteredName}
-            />
-            {nameInputIsInvalid && <p className={style.error}>Helytelen név!</p>}
+        <ModalWindow show={showWindow} onClose={onClose}>
+            <form onSubmit={formSubmitHandler} className={style.form}>
+                <label htmlFor='name'>Your Name:</label>
+                <input
+                    className={nameInputIsInvalid ? style.errorData : ''}
+                    type='text'
+                    id='name'
+                    onChange={nameInputChangeHandler}
+                    onBlur={nameInputBlurHandler}
+                    value={enteredName}
+                />
+                {nameInputIsInvalid && <p className={style.error}>Helytelen név!</p>}
 
-            <label htmlFor='email'>E-mail:</label>
-            <input
-                className={emailInputIsInvalid ? style.errorData : ''}
-                type='text'
-                id='email'
-                onChange={emailInputChangeHandler}
-                onBlur={emailInputBlurHandler}
-                value={enteredEmail}
-            />
-            {emailInputIsInvalid && <p className={style.error}>Helytelen e-mail!</p>}
+                <label htmlFor='email'>E-mail:</label>
+                <input
+                    className={emailInputIsInvalid ? style.errorData : ''}
+                    type='text'
+                    id='email'
+                    onChange={emailInputChangeHandler}
+                    onBlur={emailInputBlurHandler}
+                    value={enteredEmail}
+                />
+                {emailInputIsInvalid && <p className={style.error}>Helytelen e-mail!</p>}
 
-            <label htmlFor='phone'>Phone:</label>
-            <input
-                className={phoneInputIsInvalid ? style.errorData : ''}
-                type='text'
-                id='phone'
-                onChange={phoneInputChangeHandler}
-                onBlur={phoneInputBlurHandler}
-                value={enteredPhone}
-            />
+                <label htmlFor='phone'>Phone:</label>
+                <input
+                    className={phoneInputIsInvalid ? style.errorData : ''}
+                    type='text'
+                    id='phone'
+                    onChange={phoneInputChangeHandler}
+                    onBlur={phoneInputBlurHandler}
+                    value={enteredPhone}
+                />
 
-            {phoneInputIsInvalid && <p className={style.error}>Helytelen Telefonszám!</p>}
+                {phoneInputIsInvalid && <p className={style.error}>Helytelen Telefonszám!</p>}
 
-            <div className={style.formActions}>
-                <button onClick={() => console.log("close")} >
-                    Bezár
-                </button>
-                <button type="submit" disabled={!formIsValid}>
-                    Küldés
-                </button>
-            </div>
-        </form>
+                <div className={style.formActions}>
+                    <button onClick={() => onClose()} >
+                        Bezár
+                    </button>
+                    <button type="submit" disabled={!formIsValid} >
+                        Küldés
+                    </button>
 
+                </div>
+            </form>
+            {saveDataModalShow && (
+                <SaveDataModal update={setSaveData} showWindow={setSaveDataModalShow} show={saveDataModalShow} />
+            )}
+
+        </ModalWindow>
     );
 };
 

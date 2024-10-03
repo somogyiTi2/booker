@@ -5,6 +5,20 @@
 .formActions {
     display: flex;
     justify-content: space-evenly;
+    padding: 10%;
+
+    button {
+        border-radius: 10px;
+        padding: 10px;
+        background-color: white;
+        transition: background-color 1s ease, border-radius 1s ease;
+    }
+
+    button:hover {
+        background-color: rgb(192, 248, 255);
+        border-radius: 20px;
+    }
+
 }
 
 .form {
@@ -17,6 +31,7 @@
     p {
         display: flex;
         justify-content: center;
+        padding: 10%;
     }
 
     input {
