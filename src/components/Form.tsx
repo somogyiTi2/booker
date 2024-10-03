@@ -40,7 +40,7 @@ const Form = () => {
     const emailInputIsInvalid = !enteredEmailIsValid && enteredEmailTouched;
     /*phone*/
     const enteredPhoneIsValid =
-        enteredPhone.trim() !== '' /*TODOFIX*/
+        enteredPhone.trim() !== '' && /^[0-9]+$/.test(enteredPhone)
     const phoneInputIsInvalid = !enteredPhoneIsValid && enteredPhoneTouched;
 
     //formIsValid default

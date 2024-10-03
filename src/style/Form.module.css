@@ -22,8 +22,14 @@
     input {
         border: 1px solid rgb(177, 253, 241);
         border-radius: 4px;
+        transition: background-color 1s ease;
+    }
+
+    input:hover {
+        background-color: rgb(192, 248, 255);
     }
 }
+
 
 .errorData {
     background-color: rgb(255, 203, 203);
