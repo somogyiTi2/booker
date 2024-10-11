@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface LoginOrBookingControllerSliceType {
-    loginOrBooking: null | boolean;
+    loginOrBooking: null | number;
     formWindowVisibility: boolean;
     selectedDate: undefined | string;
 }
@@ -17,12 +17,16 @@ const LoginOrBookingControllerSlice = createSlice({
     reducers: {
         FormWindowHandler(state) {
             state.formWindowVisibility = !state.formWindowVisibility
-            console.log(LoginOrBookingControllerStore)
         },
-        SelectidDate(state, action) {
+        SelectidDate(state, action: PayloadAction<{ selectedDate: string; booking: number; }>) {
             state.selectedDate = action.payload.selectedDate;
             state.loginOrBooking = action.payload.booking;
             state.formWindowVisibility = !state.formWindowVisibility;
+        },
+        SelectedLogin(state, action: PayloadAction<{ login: number }>) {
+            state.loginOrBooking = action.payload.login;
+            state.selectedDate = undefined;
+            state.formWindowVisibility = !state.formWindowVisibility
         }
     }
 })

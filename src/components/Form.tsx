@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent, FocusEvent, useEffect } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import style from "../style/Form.module.css";
 import ModalWindow from './ModalWindow';
 import SaveDataModal from './SaveDataModal';
@@ -10,6 +10,7 @@ const Form = () => {
     const LoginOrBookingControllerStore = useSelector((state: IRootState) => state.LoginOrBooking);
     const showWindow = LoginOrBookingControllerStore.formWindowVisibility;
     const selectedDate = LoginOrBookingControllerStore.selectedDate;
+    const loginChoiceButton = LoginOrBookingControllerStore.loginOrBooking;
     const onClose = () => {
         dispatch(LoginOrBookingActions.FormWindowHandler());
     };
@@ -82,7 +83,10 @@ const Form = () => {
         if (!formIsValid) {
             return; // Do not proceed if the form is invalid
         }
-        console.log("You signed up with these data:", enteredEmail, enteredName, enteredPhone);
+        {
+            loginChoiceButton === 1 &&
+                console.log("You signed up with these data:", enteredEmail, enteredName, enteredPhone);
+        }
         setEnteredNameTouched(false);
         setEnteredEmailTouched(false);
         setEnteredPhoneTouched(false);
@@ -122,12 +126,12 @@ const Form = () => {
         selectidDateView = <div className={style.date}><p>Dátum: {sumDate}</p><p>{sumTime}</p></div>;
     }
 
-
     return (
         <ModalWindow show={showWindow} onClose={onClose}>
             <form onSubmit={formSubmitHandler} className={style.form}>
+                {loginChoiceButton === 0 && <h1>Bejelentkezés</h1>}
                 {selectedDate !== null && selectidDateView}
-                <label htmlFor='name'>Your Name:</label>
+                <label htmlFor='name'>Név:</label>
                 <input
                     className={nameInputIsInvalid ? style.errorData : ''}
                     type='text'
@@ -149,7 +153,7 @@ const Form = () => {
                 />
                 {emailInputIsInvalid && <p className={style.error}>Helytelen e-mail!</p>}
 
-                <label htmlFor='phone'>Phone:</label>
+                <label htmlFor='phone'>Telefon:</label>
                 <input
                     className={phoneInputIsInvalid ? style.errorData : ''}
                     type='text'
@@ -165,9 +169,15 @@ const Form = () => {
                     <button onClick={() => onClose()} >
                         Bezár
                     </button>
-                    <button type="submit" disabled={!formIsValid} >
-                        Küldés
-                    </button>
+                    {loginChoiceButton === 0 &&
+                        <button onClick={() => setSaveDataModalShow(true)} >
+                            Bejelentkezés
+                        </button>}
+                    {loginChoiceButton === 1 &&
+                        <button type="submit" disabled={!formIsValid} >
+                            Küldés
+                        </button>
+                    }
 
                 </div>
             </form>

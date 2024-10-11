@@ -1,0 +1,26 @@
+.logout {
+    background-color: rgb(255, 60, 0, 50%);
+}
+
+.login:hover {
+    background-color: rgba(255, 0, 0, 0.7);
+}
+
+.login {
+    background-color: rgb(60, 255, 0, 50%);
+}
+
+.login:hover {
+    background-color: rgb(60, 255, 0, 70%);
+}
+
+.logbutton {
+    border-radius: 5px;
+    font-size: 15px;
+    transition: background-color 1s ease, border-radius 1s ease;
+
+}
+
+.logbutton:hover {
+    border-radius: 10px;
+}
