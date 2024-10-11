@@ -50,3 +50,18 @@
     background-color: rgb(255, 203, 203);
     border: 2px solid red !important;
 }
+
+.date {
+    background-color: rgba(207, 207, 207, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: background-color 1s ease;
+
+    p {
+        padding: 0;
+    }
+}
+
+.date:hover {
+    background-color: rgb(192, 248, 255, 0.3);
+}

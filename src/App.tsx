@@ -1,10 +1,12 @@
 import BookingComponet from "./components/BookingComponet";
 import Form from "./components/Form";
+import LoginButton from "./components/LoginButton";
 
 function App() {
 
   return (
-    <div >
+    <div>
+      <LoginButton/>
       <BookingComponet />
       <Form/>
     </div>

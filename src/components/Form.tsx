@@ -2,12 +2,16 @@ import { useState, ChangeEvent, FormEvent, FocusEvent, useEffect } from 'react';
 import style from "../style/Form.module.css";
 import ModalWindow from './ModalWindow';
 import SaveDataModal from './SaveDataModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { IRootState, LoginOrBookingActions } from '../store';
 
 const Form = () => {
-    let [showWindow, setShowWindow] = useState(true)
-
+    const dispatch = useDispatch()
+    const LoginOrBookingControllerStore = useSelector((state: IRootState) => state.LoginOrBooking);
+    const showWindow = LoginOrBookingControllerStore.formWindowVisibility;
+    const selectedDate = LoginOrBookingControllerStore.selectedDate;
     const onClose = () => {
-        setShowWindow(false);
+        dispatch(LoginOrBookingActions.FormWindowHandler())
     }
     /*Can I save or not the datas*/
     const [saveData, setSaveData] = useState<boolean | null>(null);
@@ -118,11 +122,27 @@ const Form = () => {
         localStorage.setItem('email', enteredEmail);
         localStorage.setItem('phone', enteredPhone);
     }
+    let selectidDateView
+    if (selectedDate) {
+        const dateObj = new Date(selectedDate);
+        // Date
+        // Month
+        const month = (new Intl.DateTimeFormat("hu-HU", { month: "long" }).format(dateObj));
+        const writeMonth = month.charAt(0).toUpperCase() + month.slice(1);
+
+        //Date
+        const sumDate = `${dateObj.getFullYear()}.${writeMonth}.${dateObj.getDate()}`
+        //Time
+        const sumTime = `${dateObj.getHours()}:${String(dateObj.getMinutes()).padStart(2, '0')}`
+        selectidDateView = <div className={style.date}><p>Dátum: {sumDate}</p><p>{sumTime}</p></div>;
+    }
+
 
 
     return (
         <ModalWindow show={showWindow} onClose={onClose}>
             <form onSubmit={formSubmitHandler} className={style.form}>
+                {selectedDate !== null && selectidDateView}
                 <label htmlFor='name'>Your Name:</label>
                 <input
                     className={nameInputIsInvalid ? style.errorData : ''}

@@ -5,8 +5,8 @@ import { DateDataType } from '../type/DataType';
 
 const dummy_data: DateDataType[] = [
     {
-        date: new Date("2024-09-25T10:00:00"),
-        available: false,
+        date: new Date("2024-10-11T10:00:00"),
+        available: true,
         reservations: [{
             name: "Alice Green",
             email: "alice@example.com",
@@ -14,12 +14,12 @@ const dummy_data: DateDataType[] = [
         }]
     },
     {
-        date: new Date("2024-09-26T14:00:00"),
+        date: new Date("2024-10-12T12:00:00"),
         available: true,
     },
     {
-        date: new Date("2024-09-27T09:30:00"),
-        available: false,
+        date: new Date("2024-10-11T13:00:00"),
+        available: true,
         reservations: [{
             name: "Bob Smith",
             email: "bob@example.com",
@@ -84,7 +84,9 @@ const BookingList: React.FC<{ date: Date, numberofDays: number }> = ({ date, num
                     {day.date.toDateString()}
                     <p>
                         {selectedTime(dummy_data, day.date).map((data) => (
-                            <BookingDate key={data.date.toISOString()} data={data} />
+                            data.available === true /*or admin*/ && (
+                                <BookingDate key={data.date.toISOString()} data={data} />
+                            )
                         ))}
                     </p>
                 </div>
