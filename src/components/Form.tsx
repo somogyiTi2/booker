@@ -6,18 +6,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IRootState, LoginOrBookingActions } from '../store';
 
 const Form = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const LoginOrBookingControllerStore = useSelector((state: IRootState) => state.LoginOrBooking);
     const showWindow = LoginOrBookingControllerStore.formWindowVisibility;
     const selectedDate = LoginOrBookingControllerStore.selectedDate;
     const onClose = () => {
-        dispatch(LoginOrBookingActions.FormWindowHandler())
-    }
+        dispatch(LoginOrBookingActions.FormWindowHandler());
+    };
+
     /*Can I save or not the datas*/
     const [saveData, setSaveData] = useState<boolean | null>(null);
-    /*can I need open the data save window*/
+    /*Can I need open the data save window*/
     const [saveDataModalShow, setSaveDataModalShow] = useState<boolean>(false);
-
     /*name*/
     const name = localStorage.getItem('name');
     const [enteredName, setEnteredName] = useState<string>(name || '');
@@ -61,41 +61,27 @@ const Form = () => {
     const emailInputIsInvalid = !enteredEmailIsValid && enteredEmailTouched;
     /*phone*/
     const enteredPhoneIsValid =
-        enteredPhone.trim() !== '' && /^[0-9]+$/.test(enteredPhone)
+        enteredPhone.trim() !== '' && /^[0-9]+$/.test(enteredPhone);
     const phoneInputIsInvalid = !enteredPhoneIsValid && enteredPhoneTouched;
-
-    //formIsValid default
-    let formIsValid = false;
-
-    // Determine form validity
-    if (enteredNameIsValid && enteredEmailIsValid && enteredPhoneIsValid) {
-        formIsValid = true;
-    }
-
+    //formIsValid default, Determine form validity
+    let formIsValid = enteredNameIsValid && enteredEmailIsValid && enteredPhoneIsValid;
     // Handle input blur event (when user leaves the input field)
     /*name*/
-    const nameInputBlurHandler = (event: FocusEvent<HTMLInputElement>) => {
-        setEnteredNameTouched(true);
-    };
+    const nameInputBlurHandler = () => setEnteredNameTouched(true);
     /*email*/
-    const emailInputBlurHandler = (event: FocusEvent<HTMLInputElement>) => {
-        setEnteredEmailTouched(true);
-    };
+    const emailInputBlurHandler = () => setEnteredEmailTouched(true);
     /*phone*/
-    const phoneInputBlurHandler = (event: FocusEvent<HTMLInputElement>) => {
-        setEnteredPhoneTouched(true);
-    };
+    const phoneInputBlurHandler = () => setEnteredPhoneTouched(true);
 
     // Submit handler
     const formSubmitHandler = (event: FormEvent) => {
         event.preventDefault();
         setEnteredNameTouched(true);
-        setSaveDataModalShow(needWindow)
-        needWindow === false && onClose()
-        if (!enteredNameIsValid && !enteredEmailIsValid && !enteredPhoneIsValid) {
+        setSaveDataModalShow(needWindow);
+        needWindow === false && onClose();
+        if (!formIsValid) {
             return; // Do not proceed if the form is invalid
         }
-        // Reset the form after submission
         console.log("You signed up with these data:", enteredEmail, enteredName, enteredPhone);
         setEnteredNameTouched(false);
         setEnteredEmailTouched(false);
@@ -105,24 +91,23 @@ const Form = () => {
     useEffect(() => {
         if (saveData === true) {
             saveDataHandler();
-            onClose()
+            onClose();
         }
         if (saveData === false) {
             setEnteredName('');
             setEnteredEmail('');
             setEnteredPhone('');
-            onClose()
+            onClose();
         }
-
-    }, [formSubmitHandler, saveData])
-
+    }, [saveData]);
 
     const saveDataHandler = () => {
         localStorage.setItem('name', enteredName);
         localStorage.setItem('email', enteredEmail);
         localStorage.setItem('phone', enteredPhone);
-    }
-    let selectidDateView
+    };
+
+    let selectidDateView;
     if (selectedDate) {
         const dateObj = new Date(selectedDate);
         // Date
@@ -131,12 +116,11 @@ const Form = () => {
         const writeMonth = month.charAt(0).toUpperCase() + month.slice(1);
 
         //Date
-        const sumDate = `${dateObj.getFullYear()}.${writeMonth}.${dateObj.getDate()}`
+        const sumDate = `${dateObj.getFullYear()}.${writeMonth}.${dateObj.getDate()}`;
         //Time
-        const sumTime = `${dateObj.getHours()}:${String(dateObj.getMinutes()).padStart(2, '0')}`
+        const sumTime = `${dateObj.getHours()}:${String(dateObj.getMinutes()).padStart(2, '0')}`;
         selectidDateView = <div className={style.date}><p>Dátum: {sumDate}</p><p>{sumTime}</p></div>;
     }
-
 
 
     return (
