@@ -3,9 +3,14 @@ import style from "../style/Form.module.css";
 import ModalWindow from './ModalWindow';
 import SaveDataModal from './SaveDataModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState, LoginOrBookingActions } from '../store';
+import { IRootState, LoginOrBookingActions, AdminActions } from '../store';
 
 const Form = () => {
+    const adminData = {
+        name: process.env.REACT_APP_ADMINNAME,
+        email: process.env.REACT_APP_ADMINEMAIL,
+        phone: process.env.REACT_APP_ADMINPHONE
+    }
     const dispatch = useDispatch();
     const LoginOrBookingControllerStore = useSelector((state: IRootState) => state.LoginOrBooking);
     const showWindow = LoginOrBookingControllerStore.formWindowVisibility;
@@ -82,6 +87,11 @@ const Form = () => {
         needWindow === false && onClose();
         if (!formIsValid) {
             return; // Do not proceed if the form is invalid
+        }
+        {
+            if (loginChoiceButton === 0 && adminData.email === enteredEmail && adminData.name === enteredName && adminData.phone === enteredPhone) {
+                dispatch(AdminActions.AdminMode())
+            }
         }
         {
             loginChoiceButton === 1 &&

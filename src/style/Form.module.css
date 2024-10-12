@@ -27,6 +27,12 @@
     flex-direction: column;
     width: 50%;
 
+    input,
+    h1,
+    button {
+        transition: opacity 1s ease;
+    }
+
     label,
     p {
         display: flex;
@@ -64,4 +70,17 @@
 
 .date:hover {
     background-color: rgb(192, 248, 255, 0.3);
+}
+
+.success {
+    background-image: url(https://em-content.zobj.net/source/joypixels-animations/366/check-mark-button_2705.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+
+    input,
+    h1,
+    button {
+        opacity: 0;
+    }
+
 }

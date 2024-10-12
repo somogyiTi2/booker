@@ -9,16 +9,32 @@
     background-color: #f9f9f9;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     align-items: center;
-    margin:5% auto;
+    margin: 5% auto;
 
     input {
         width: 20vh;
     }
-    input[type="time"], input[type="text"]{
-       text-align: center;
+
+    input[type="time"],
+    input[type="text"] {
+        text-align: center;
     }
+
     summary {
         display: flex;
         justify-content: center;
     }
+}
+
+.needLoginAdmin {
+    color: rgb(60, 60, 200);
+}
+
+.fullAdmin {
+    color: rgb(60, 200, 60)
+}
+
+.needLoginAdmin,
+.fullAdmin {
+    text-align: center;
 }
