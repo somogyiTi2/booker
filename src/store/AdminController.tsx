@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { AdminControllerSliceType } from "../type/AdminControllerSliceType";
 
-interface AdminControllerSliceType {
-    admin: boolean;
-    passwordHandler: boolean;
-}
 const AdminControllerSliceStore: AdminControllerSliceType = {
     admin: false,
     passwordHandler: false,
+    adminControlPanelShow: false,
+    adminControllerDatas: {}
 }
 
 const AdminControllerSlice = createSlice({
@@ -18,8 +17,11 @@ const AdminControllerSlice = createSlice({
         },
         AdminModeTrue(state) {
             state.admin = true;
-            console.log("Admin mode start");
         },
+        AdminControlPanel(state, action) {
+            state.adminControlPanelShow = !state.adminControlPanelShow
+            state.adminControllerDatas=action.payload;
+        }
     }
 })
 export default AdminControllerSlice;

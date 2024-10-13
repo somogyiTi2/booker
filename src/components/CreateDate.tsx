@@ -11,8 +11,8 @@ const CreateDate = () => {
     const digitalTime = new Intl.DateTimeFormat("hu-HU", { hour: '2-digit', minute: "2-digit" }).format()
     const [startClock, setstartClock] = useState<string>(digitalTime)
     const [teamNumber, setTeamNumber] = useState<number>(1);
-    const AdminController = useSelector((state: IRootState) => state.Admin)
-    const adminRedux: boolean = AdminController.admin;
+    const adminController = useSelector((state: IRootState) => state.Admin)
+    const adminRedux: boolean = adminController.admin;
     const adminLocal: boolean = !!localStorage.getItem('admin');
     const fullAdmin: boolean = adminRedux && adminLocal;
 

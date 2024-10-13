@@ -9,7 +9,7 @@
 ?- Permission management?
 
 ## Admin Option Button:
-- Clicking on the appointment initiates the action.
+- Clicking on the appointment initiates the action.✅
 
 # Other Uses
 

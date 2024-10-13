@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import BookingDate from './BookingDate';
 import styles from '../style/BookingList.module.css';
 import { DateDataType } from '../type/DataType';
+import { IRootState } from '../store';
+import { useSelector } from 'react-redux';
 
 const dummy_data: DateDataType[] = [
     {
@@ -19,11 +21,16 @@ const dummy_data: DateDataType[] = [
     },
     {
         date: new Date("2024-10-11T13:00:00"),
-        available: true,
+        available: false,
         reservations: [{
             name: "Bob Smith",
             email: "bob@example.com",
             phone: 9876543210
+        },
+        {
+            name: "Clara Johnson",
+            email: "clara@example.com",
+            phone: 4561237890
         }]
     },
     {
@@ -51,6 +58,10 @@ const dummy_data: DateDataType[] = [
 ];
 
 const BookingList: React.FC<{ date: Date, numberofDays: number }> = ({ date, numberofDays }) => {
+    const adminController = useSelector((state: IRootState) => state.Admin)
+    const adminRedux: boolean = adminController.admin;
+    const adminLocal: boolean = !!localStorage.getItem('admin');
+    const fullAdmin: boolean = true;/*TODO adminRedux && adminLocal;*/
     const promptDate: Date = date
     const [visibleDates, setVisibleDates] = useState<{ date: Date }[]>([]);
     const numberOfDays = numberofDays;
@@ -84,7 +95,7 @@ const BookingList: React.FC<{ date: Date, numberofDays: number }> = ({ date, num
                     {day.date.toDateString()}
                     <p>
                         {selectedTime(dummy_data, day.date).map((data) => (
-                            data.available === true /*or admin*/ && (
+                            (data.available || fullAdmin) && (
                                 <BookingDate key={data.date.toISOString()} data={data} />
                             )
                         ))}

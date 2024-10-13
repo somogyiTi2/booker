@@ -12,9 +12,27 @@
     align-items: center;
     opacity: 1;
     transition: padding 1s ease, opacity 1s ease;
+
+    hr {
+        width: 100%;
+        border: 1px rgba(162, 160, 160, 50%) solid;
+        transition: border 1s ease;
+    }
 }
 
 .bookingButton:hover {
     padding: 12px;
     opacity: 0.9;
+
+    hr {
+        border: 1px rgb(161, 162, 160) solid;
+    }
+}
+
+.available {
+    background-color: rgba(0, 128, 0, 0.753);
+}
+
+.unavailable {
+    background-color: rgba(255, 0, 0, 0.733);
 }
