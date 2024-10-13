@@ -1,14 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Reservation } from "../type/DataType";
 
 interface LoginOrBookingControllerSliceType {
-    loginOrBooking: null | number;
+    option: null | number;
     formWindowVisibility: boolean;
     selectedDate: undefined | string;
+    updatePersonData: undefined | Reservation
 }
 const LoginOrBookingControllerStore: LoginOrBookingControllerSliceType = {
-    loginOrBooking: null, /*login 0, booking 1*/
+    option: null, /*login 0, booking 1, updatePersonData 2*/
     formWindowVisibility: false,
-    selectedDate: undefined
+    selectedDate: undefined,
+    updatePersonData: undefined,
 }
 
 const LoginOrBookingControllerSlice = createSlice({
@@ -20,13 +23,19 @@ const LoginOrBookingControllerSlice = createSlice({
         },
         SelectidDate(state, action: PayloadAction<{ selectedDate: string; booking: number; }>) {
             state.selectedDate = action.payload.selectedDate;
-            state.loginOrBooking = action.payload.booking;
+            state.option = action.payload.booking;
             state.formWindowVisibility = !state.formWindowVisibility;
         },
         SelectedLogin(state, action: PayloadAction<{ login: number }>) {
-            state.loginOrBooking = action.payload.login;
+            state.option = action.payload.login;
             state.selectedDate = undefined;
             state.formWindowVisibility = !state.formWindowVisibility
+        },
+        UpdateDate(state, action) {
+            state.formWindowVisibility = !state.formWindowVisibility;
+            state.updatePersonData = action.payload.person;
+            state.option = action.payload.loginOrBooking;
+            console.log(action.payload)
         }
     }
 })

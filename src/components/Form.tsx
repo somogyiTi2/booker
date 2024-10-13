@@ -4,6 +4,7 @@ import ModalWindow from './ModalWindow';
 import SaveDataModal from './SaveDataModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState, LoginOrBookingActions, AdminActions } from '../store';
+import { DateDataType } from '../type/DataType';
 
 const Form = () => {
     const adminData = {
@@ -15,10 +16,36 @@ const Form = () => {
     const LoginOrBookingControllerStore = useSelector((state: IRootState) => state.LoginOrBooking);
     const showWindow = LoginOrBookingControllerStore.formWindowVisibility;
     const selectedDate = LoginOrBookingControllerStore.selectedDate;
-    const loginChoiceButton = LoginOrBookingControllerStore.loginOrBooking;
+    const options = LoginOrBookingControllerStore.option;
+    const adminUpdateData = LoginOrBookingControllerStore.updatePersonData;
+    const adminControllerDatas: DateDataType | {} = useSelector((state: IRootState) => state.Admin.adminControllerDatas)
+
+    const hasProperty = <T extends object>(data: T | {}, key: keyof T): data is T => {
+        return key in data;
+    };
+
     const onClose = () => {
         dispatch(LoginOrBookingActions.FormWindowHandler());
     };
+
+    useEffect(() => {
+        console.log(options)
+        switch (options) {
+            case 1:
+                name && setEnteredName(name);
+                email && setEnteredEmail(email);
+                phone && setEnteredPhone(phone);
+                break;
+        
+            case 2:
+                adminUpdateData?.name && setEnteredName(adminUpdateData.name);
+                adminUpdateData?.email && setEnteredEmail(adminUpdateData.email);
+                adminUpdateData?.phone && setEnteredPhone(adminUpdateData.phone.toString());
+                break;
+            default:
+                break;
+        }
+    }, [options, adminUpdateData])
 
     /*Can I save or not the datas*/
     const [saveData, setSaveData] = useState<boolean | null>(null);
@@ -88,15 +115,22 @@ const Form = () => {
         if (!formIsValid) {
             return; // Do not proceed if the form is invalid
         }
-        {
-            if (loginChoiceButton === 0 && adminData.email === enteredEmail && adminData.name === enteredName && adminData.phone === enteredPhone) {
-                dispatch(AdminActions.AdminMode())
-            }
-        }
-        {
-            loginChoiceButton === 1 &&
+        switch (options) {
+            case (0):
+                if (adminData.email === enteredEmail && adminData.name === enteredName && adminData.phone === enteredPhone) {
+                    dispatch(AdminActions.AdminMode())
+                }
+                break;
+            case (1):
                 console.log("You signed up with these data:", enteredEmail, enteredName, enteredPhone);
+                break;
+            case (2):
+                hasProperty(adminControllerDatas, 'reservations') && console.log(adminControllerDatas?.reservations?.filter((data) => data !== adminUpdateData), { email: enteredEmail, name: enteredName, phone: enteredPhone })
+                break;
+            default:
+                console.log("Something is wrong")
         }
+
         setEnteredNameTouched(false);
         setEnteredEmailTouched(false);
         setEnteredPhoneTouched(false);
@@ -139,7 +173,7 @@ const Form = () => {
     return (
         <ModalWindow show={showWindow} onClose={onClose}>
             <form onSubmit={formSubmitHandler} className={style.form}>
-                {loginChoiceButton === 0 && <h1>Bejelentkezés</h1>}
+                {options === 0 && <h1>Bejelentkezés</h1>}
                 {selectedDate !== null && selectidDateView}
                 <label htmlFor='name'>Név:</label>
                 <input
@@ -179,13 +213,13 @@ const Form = () => {
                     <button onClick={() => onClose()} >
                         Bezár
                     </button>
-                    {loginChoiceButton === 0 &&
+                    {options === 0 &&
                         <button onClick={() => setSaveDataModalShow(true)} >
                             Bejelentkezés
                         </button>}
-                    {loginChoiceButton === 1 &&
+                    {(options === 1 || options === 2) &&
                         <button type="submit" disabled={!formIsValid} >
-                            Küldés
+                            {options === 1 && "Küldés"}  {options === 2 && "Frissít"}
                         </button>
                     }
 

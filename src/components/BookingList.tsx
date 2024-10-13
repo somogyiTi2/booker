@@ -61,7 +61,7 @@ const BookingList: React.FC<{ date: Date, numberofDays: number }> = ({ date, num
     const adminController = useSelector((state: IRootState) => state.Admin)
     const adminRedux: boolean = adminController.admin;
     const adminLocal: boolean = !!localStorage.getItem('admin');
-    const fullAdmin: boolean = true;/*TODO adminRedux && adminLocal;*/
+    const fullAdmin: boolean = adminRedux && adminLocal;
     const promptDate: Date = date
     const [visibleDates, setVisibleDates] = useState<{ date: Date }[]>([]);
     const numberOfDays = numberofDays;

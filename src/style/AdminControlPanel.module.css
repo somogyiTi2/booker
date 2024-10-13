@@ -1,0 +1,43 @@
+.AdminControlPanel {
+    .boxModule {
+        background-color: rgba(207, 207, 207, 0.3);
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transition: background-color 1s ease;
+        margin-top: 5%;
+
+        p {
+            padding: 0;
+        }
+    }
+
+    select {
+        padding-left: 10px;
+        background-color: rgb(192, 248, 255, 0.3);
+        transition: background-color 1s ease;
+        border-radius: 10px;
+    }
+
+    button {
+        border-radius: 10px;
+        padding: 10px;
+        background-color: white;
+        transition: background-color 1s ease, border-radius 1s ease;
+    }
+
+    button:hover {
+        background-color: rgb(192, 248, 255);
+        border-radius: 20px;
+    }
+
+    .boxModule:hover {
+        background-color: rgb(192, 248, 255, 0.3);
+    }
+
+    .oneLine {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 0px;
+    }
+}

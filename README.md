@@ -3,8 +3,8 @@
 ## Admin Mode
 ### What Can an Admin Do:
 - Create new appointments ✅
-- Update attendance records
-- Delete educational data
+- Update attendance records ✅
+- Delete educational data ✅
 - View all users
 ?- Permission management?
 
@@ -17,7 +17,7 @@
 - Can only view their own lessons
 
 ## How to Check if a User is Admin:
-- If the provided information is correct, they must enter a password stored in the `.env` file.
+- If the provided information is correct, they must enter a password stored in the `.env` file. ✅
 
 # External Admin
 - Should work with a database, but the `.env` contains the super admin credentials. -> Permission management?

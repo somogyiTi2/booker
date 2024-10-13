@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import style from '../style/CreateDate.module.css'
+import formstyle from "../style/Form.module.css"
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState, LoginOrBookingActions } from '../store';
 
@@ -33,7 +34,7 @@ const CreateDate = () => {
     return (
         <>
             {adminLocal && <h1 className={fullAdmin ? style.fullAdmin : style.needLoginAdmin}>Admin mode:</h1>}
-            <form onSubmit={submitHandler} className={style.form}>
+            <form onSubmit={submitHandler} className={`${style.form} ${formstyle.form}`}>
                 <DatePicker
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}

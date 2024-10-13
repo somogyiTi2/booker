@@ -1,4 +1,4 @@
-type Reservation = {
+export type Reservation = {
     name: string;
     email: string;
     phone: number;
