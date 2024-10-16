@@ -5,7 +5,7 @@ interface LoginOrBookingControllerSliceType {
     option: null | number;
     formWindowVisibility: boolean;
     selectedDate: undefined | string;
-    updatePersonData: undefined | Reservation
+    updatePersonData: undefined | Reservation 
 }
 const LoginOrBookingControllerStore: LoginOrBookingControllerSliceType = {
     option: null, /*login 0, booking 1, updatePersonData 2*/
@@ -35,7 +35,6 @@ const LoginOrBookingControllerSlice = createSlice({
             state.formWindowVisibility = !state.formWindowVisibility;
             state.updatePersonData = action.payload.person;
             state.option = action.payload.loginOrBooking;
-            console.log(action.payload)
         }
     }
 })

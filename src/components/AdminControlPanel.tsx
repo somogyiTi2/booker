@@ -56,10 +56,11 @@ const AdminControlPanel: React.FC<AdminControlPanelProps> = ({ show, data }) => 
 
   return (
     <ModalWindow onClose={handleClose} show={show}>
-      <div className={style.AdminControlPanel}>
+      <div className={style.AdminControlPanel} >
         <select
           value={selectedFunctionType}
           onChange={(event) => setSelectedFunctionType(event.target.value)}
+          key={selectedFunctionType}
         >
           <option value="">Válassz egy lehetőséget</option>
           {functionTypes.map(option => (
@@ -73,14 +74,15 @@ const AdminControlPanel: React.FC<AdminControlPanelProps> = ({ show, data }) => 
           {hasProperty(data, 'date') &&
             new Date(data.date).toISOString().slice(0, 10)}
           {hasProperty(data, 'reservations') && data.reservations &&
-            data.reservations.map((reservation: Reservation) => (
-              <div key={reservation.phone} className={style.oneLine}>
+            data.reservations.map((reservation: Reservation, index) => (
+              <div key={reservation.phone || index} className={style.oneLine}>
                 <p>{reservation.name}</p>
                 {selectedFunction?.button &&
                   <div onClick={() => handleButtonClick(reservation)}> {selectedFunction?.button}</div>
                 }
               </div>
-            ))}
+            ))
+          }
         </div>
 
         <button type="button" onClick={handleClose}>
@@ -89,7 +91,7 @@ const AdminControlPanel: React.FC<AdminControlPanelProps> = ({ show, data }) => 
 
         {
           selectedFunction?.buttonText && (
-            <button type="button" onClick={()=>handleButtonClick()}>
+            <button type="button" onClick={() => handleButtonClick()}>
               {selectedFunction.buttonText}
             </button>
           )

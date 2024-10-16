@@ -29,7 +29,6 @@ const Form = () => {
     };
 
     useEffect(() => {
-        console.log(options)
         switch (options) {
             case 1:
                 name && setEnteredName(name);
