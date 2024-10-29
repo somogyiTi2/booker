@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IRootState, LoginOrBookingActions } from '../store';
+import { AdminActions, IRootState, LoginOrBookingActions } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../style/LoginButton.module.css'
 
@@ -13,9 +13,9 @@ const LoginButton = () => {
   };
   const logOutButtonHandler = () => {
     localStorage.clear();
+    dispatch(AdminActions.AdminModeFalse());
     setIsLoggedIn(false);
   };
-
 
   useEffect(() => {
     const name = localStorage.getItem('name');

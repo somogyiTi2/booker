@@ -18,6 +18,9 @@ const AdminControllerSlice = createSlice({
         AdminModeTrue(state) {
             state.admin = true;
         },
+        AdminModeFalse(state) {
+            state.admin = false;
+        },
         AdminControlPanel(state, action) {
             state.adminControlPanelShow = !state.adminControlPanelShow
             state.adminControllerDatas=action.payload;
