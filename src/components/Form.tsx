@@ -107,7 +107,6 @@ const Form = () => {
     // Submit handler
     const formSubmitHandler = (event: FormEvent) => {
         event.preventDefault();
-        console.log("start", options);
         setEnteredNameTouched(true);
         setSaveDataModalShow(needWindow);
         needWindow === false && onClose();
@@ -116,13 +115,11 @@ const Form = () => {
         }
         switch (options) {
             case (0):
-                console.log("0");
                 if (adminData.email === enteredEmail && adminData.name === enteredName && adminData.phone === enteredPhone) {
                     dispatch(AdminActions.AdminMode())
                 }
                 break;
             case (1):
-                console.log("You signed up with these data:", enteredEmail, enteredName, enteredPhone);
                 selectedDate && UpdateBooking({ selectedDate, email: enteredEmail, name: enteredName, phone: +enteredPhone, functionID: "booking" },)
                 break;
             case (2):

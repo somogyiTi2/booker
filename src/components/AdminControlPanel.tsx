@@ -50,7 +50,6 @@ const AdminControlPanel: React.FC<AdminControlPanelProps> = ({ show, data }) => 
         case 'DeleteTime':
           if (hasProperty(data, 'date')) {
             const dateToDelete = new Date(data.date).toISOString().split('.')[0];
-            console.log("Delete these time:", dateToDelete);
             DeleteTime(dateToDelete)
             dispatch(AdminActions.UpdateData(true))
             handleClose()
