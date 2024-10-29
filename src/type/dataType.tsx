@@ -8,4 +8,7 @@ export type DateDataType = {
     date: Date;
     available: boolean;
     reservations?: Reservation[];
+    finishTime:Date;
+    nameClass?:string;
+    teamNumber:number;
 };

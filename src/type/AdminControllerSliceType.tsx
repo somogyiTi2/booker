@@ -5,4 +5,5 @@ export interface AdminControllerSliceType  {
     passwordHandler: boolean;
     adminControlPanelShow: boolean;
     adminControllerDatas: DateDataType | {};
+    updateData:boolean;
 }

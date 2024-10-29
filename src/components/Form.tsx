@@ -4,6 +4,7 @@ import ModalWindow from './ModalWindow';
 import SaveDataModal from './SaveDataModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState, LoginOrBookingActions, AdminActions } from '../store';
+import UpdateBooking from '../services/UpdateBooking';
 import { DateDataType } from '../type/DataType';
 
 const Form = () => {
@@ -18,11 +19,7 @@ const Form = () => {
     const selectedDate = LoginOrBookingControllerStore.selectedDate;
     const options = LoginOrBookingControllerStore.option;
     const adminUpdateData = LoginOrBookingControllerStore.updatePersonData;
-    const adminControllerDatas: DateDataType | {} = useSelector((state: IRootState) => state.Admin.adminControllerDatas)
-
-    const hasProperty = <T extends object>(data: T | {}, key: keyof T): data is T => {
-        return key in data;
-    };
+    const adminSelector = useSelector((state: IRootState) => state.Admin.adminControllerDatas)
 
     const onClose = () => {
         dispatch(LoginOrBookingActions.FormWindowHandler());
@@ -35,7 +32,7 @@ const Form = () => {
                 email && setEnteredEmail(email);
                 phone && setEnteredPhone(phone);
                 break;
-        
+
             case 2:
                 adminUpdateData?.name && setEnteredName(adminUpdateData.name);
                 adminUpdateData?.email && setEnteredEmail(adminUpdateData.email);
@@ -108,6 +105,7 @@ const Form = () => {
     // Submit handler
     const formSubmitHandler = (event: FormEvent) => {
         event.preventDefault();
+        console.log("start", options);
         setEnteredNameTouched(true);
         setSaveDataModalShow(needWindow);
         needWindow === false && onClose();
@@ -116,15 +114,32 @@ const Form = () => {
         }
         switch (options) {
             case (0):
+                console.log("0");
                 if (adminData.email === enteredEmail && adminData.name === enteredName && adminData.phone === enteredPhone) {
                     dispatch(AdminActions.AdminMode())
                 }
                 break;
             case (1):
                 console.log("You signed up with these data:", enteredEmail, enteredName, enteredPhone);
+                selectedDate && UpdateBooking({ selectedDate, email: enteredEmail, name: enteredName, phone: enteredPhone, functionID: "booking" },)
                 break;
             case (2):
-                hasProperty(adminControllerDatas, 'reservations') && console.log(adminControllerDatas?.reservations?.filter((data) => data !== adminUpdateData), { email: enteredEmail, name: enteredName, phone: enteredPhone })
+                if ('date' in adminSelector) {
+                    UpdateBooking({
+                        selectedDate: new Date((adminSelector as DateDataType).date).toISOString(),
+                        email: enteredEmail,
+                        name: enteredName,
+                        phone: enteredPhone,
+                        functionID: "updateData",
+                        updateData: {
+                            name: adminUpdateData?.name || "",
+                            phone: adminUpdateData?.phone.toString() || "",
+                            email: adminUpdateData?.email || "",
+                        }
+                    });
+
+                }
+                dispatch(AdminActions.UpdateData(true))
                 break;
             default:
                 console.log("Something is wrong")

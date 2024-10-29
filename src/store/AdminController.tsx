@@ -5,7 +5,8 @@ const AdminControllerSliceStore: AdminControllerSliceType = {
     admin: false,
     passwordHandler: false,
     adminControlPanelShow: false,
-    adminControllerDatas: {}
+    adminControllerDatas: {},
+    updateData: false
 }
 
 const AdminControllerSlice = createSlice({
@@ -20,8 +21,15 @@ const AdminControllerSlice = createSlice({
         },
         AdminControlPanel(state, action) {
             state.adminControlPanelShow = !state.adminControlPanelShow
-            state.adminControllerDatas=action.payload;
+            state.adminControllerDatas = action.payload;
+        },
+        UpdateData(state,action) {
+            state.updateData=action.payload
+        },
+        AdminControlerDataUpdate(state, action) {
+            state.adminControllerDatas =  action.payload;
         }
+
     }
 })
 export default AdminControllerSlice;
