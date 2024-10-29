@@ -4,7 +4,7 @@ import SecureAdminAccess from './SecureAdminAccess';
 import { IRootState } from '../store';
 import AdminControlPanel from './AdminControlPanel';
 import { AdminControllerSliceType } from '../type/AdminControllerSliceType';
-import { DateDataType } from '../type/DataType';
+import { DateDataType } from '../type/DataTypes';
 
 const AdminHandlers = () => {
     const adminController:AdminControllerSliceType = useSelector((state: IRootState) => state.Admin)

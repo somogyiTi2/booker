@@ -4,7 +4,7 @@ import ModalWindow from './ModalWindow';
 import SaveDataModal from './SaveDataModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState, LoginOrBookingActions, AdminActions } from '../store';
-import { DateDataType } from '../type/DataType';
+import { DateDataType } from '../type/DataTypes';
 
 const Form = () => {
     const adminData = {

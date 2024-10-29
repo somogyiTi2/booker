@@ -1,4 +1,4 @@
-import { DateDataType } from "../type/DataType";
+import { DateDataType } from "../type/DataTypes";
 import styles from '../style/BookingDate.module.css';
 import { useDispatch } from "react-redux";
 import { AdminActions, LoginOrBookingActions } from "../store";

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ModalWindow from './ModalWindow';
 import { useDispatch } from 'react-redux';
 import { AdminActions, LoginOrBookingActions } from '../store';
-import { DateDataType, Reservation } from '../type/DataType';
+import { DateDataType, Reservation } from '../type/DataTypes';
 import style from '../style/AdminControlPanel.module.css'
 
 interface AdminControlPanelProps {
