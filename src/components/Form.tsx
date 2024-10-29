@@ -123,7 +123,7 @@ const Form = () => {
                 break;
             case (1):
                 console.log("You signed up with these data:", enteredEmail, enteredName, enteredPhone);
-                selectedDate && UpdateBooking({ selectedDate, email: enteredEmail, name: enteredName, phone: enteredPhone, functionID: "booking" },)
+                selectedDate && UpdateBooking({ selectedDate, email: enteredEmail, name: enteredName, phone: +enteredPhone, functionID: "booking" },)
                 break;
             case (2):
                 if ('date' in adminSelector) {
@@ -131,13 +131,9 @@ const Form = () => {
                         selectedDate: new Date((adminSelector as DateDataType).date).toISOString(),
                         email: enteredEmail,
                         name: enteredName,
-                        phone: enteredPhone,
+                        phone: +enteredPhone,
                         functionID: "updateData",
-                        updateData: {
-                            name: adminUpdateData?.name || "",
-                            phone: adminUpdateData?.phone.toString() || "",
-                            email: adminUpdateData?.email || "",
-                        }
+                        updateData: adminUpdateData
                     });
 
                 }

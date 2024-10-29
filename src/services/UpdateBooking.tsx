@@ -1,13 +1,6 @@
-interface Reservation {
-    name: string;
-    email: string;
-    phone: string;
-}
+import { Reservation } from "../type/DataTypes";
+import { BookingData, UpdateBookingPropsType } from "../type/UpdateBookingPropsType";
 
-interface BookingData {
-    reservations?: Reservation[];
-    teamNumber?: number;
-}
 
 const UpdateBooking = async ({
     selectedDate,
@@ -16,14 +9,8 @@ const UpdateBooking = async ({
     phone,
     functionID,
     updateData,
-}: {
-    selectedDate: string;
-    name: string;
-    email: string;
-    phone: string;
-    functionID: string;
-    updateData?: Reservation;
-}) => {
+}:UpdateBookingPropsType
+) => {
     const id = new Date(selectedDate).toISOString().split('.')[0];
     const newReservation: Reservation = {
         name,

@@ -6,9 +6,6 @@ import { AdminActions, LoginOrBookingActions } from "../store";
 const BookingDate = ({ data: appointment }: { data: DateDataType }) => {
     const dispatch = useDispatch();
     const isAdmin: boolean = !!localStorage.getItem('admin');
-    const available = appointment
-        && (appointment.reservations?.length ?? 0) >= appointment.teamNumber &&
-        new Date(appointment.date) >= new Date();
 
     const handleAdminClick = () => {
         const reduxAppointment = {

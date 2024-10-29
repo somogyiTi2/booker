@@ -2,11 +2,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AdminActions, IRootState } from '../store';
 
-interface ReadUserProps {
-  setBookableDates: (dates: any[]) => void;
-}
 
-const ReadBookableDates: React.FC<ReadUserProps> = ({ setBookableDates }) => {
+const ReadBookableDates: React.FC<{ setBookableDates: (dates: any[]) => void }> = ({ setBookableDates }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const updateData = useSelector((store: IRootState) => store.Admin.updateData)
@@ -27,9 +24,9 @@ const ReadBookableDates: React.FC<ReadUserProps> = ({ setBookableDates }) => {
         loadedMovies.push({
           date: new Date(data[key].date),
           available: data[key].available,
-          finishTime:data[key].finishTime,
-          nameClass:data[key].nameClass,
-          teamNumber:data[key].teamNumber,
+          finishTime: data[key].finishTime,
+          nameClass: data[key].nameClass,
+          teamNumber: data[key].teamNumber,
           reservations: data[key].reservations,
         });
       }

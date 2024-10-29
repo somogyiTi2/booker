@@ -2,22 +2,11 @@ import React, { useState } from 'react';
 import ModalWindow from './ModalWindow';
 import { useDispatch } from 'react-redux';
 import { AdminActions, LoginOrBookingActions } from '../store';
-import { DateDataType, Reservation } from '../type/DataTypes';
+import { Reservation } from '../type/DataTypes';
 import style from '../style/AdminControlPanel.module.css'
 import DeleteTime from '../services/DeleteTime';
 import UpdateBooking from '../services/UpdateBooking';
-
-interface AdminControlPanelProps {
-  show: boolean;
-  data: DateDataType | {};
-}
-
-interface ButtonType {
-  functionID: string;
-  text: string;
-  buttonText?: string;
-  button?: string;
-}
+import { AdminControlPanelProps, AdminFunctionType } from '../type/AdminControlPanelType';
 
 const AdminControlPanel: React.FC<AdminControlPanelProps> = ({ show, data }) => {
   const dispatch = useDispatch();
@@ -27,7 +16,7 @@ const AdminControlPanel: React.FC<AdminControlPanelProps> = ({ show, data }) => 
     return key in data;
   };
 
-  const functionTypes: ButtonType[] = [
+  const functionTypes: AdminFunctionType[] = [
     { functionID: 'DeleteTime', text: '🚯 Alkalom törlése', buttonText: 'Törlöm az alkamat' },
     { functionID: 'DeletePerson', text: '🚫 Adott óra ürítése', button: '🚫' },
     { functionID: 'Update', text: '🔃 Személy frissítése', button: '🔃' },
@@ -42,11 +31,12 @@ const AdminControlPanel: React.FC<AdminControlPanelProps> = ({ show, data }) => 
       switch (selectedFunction?.functionID) {
         case 'DeletePerson':
           if (hasProperty(data, 'reservations') && data.reservations) {
+            /*TODO FIX*/
             UpdateBooking({
               selectedDate: new Date(data.date).toISOString(),
               name: person?.name || "",
               email: person?.email || "",
-              phone: person?.phone.toString() || "",
+              phone: person?.phone || 123 ,
               functionID: "deletePerson",
             });
             dispatch(AdminActions.AdminControlerDataUpdate(data.reservations.filter((data) => data !== person)))

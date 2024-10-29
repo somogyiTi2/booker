@@ -1,12 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Reservation } from "../type/DataTypes";
+import { LoginOrBookingControllerSliceType } from "../type/LoginOrBookingControllerSliceType";
 
-interface LoginOrBookingControllerSliceType {
-    option: null | number;
-    formWindowVisibility: boolean;
-    selectedDate: undefined | string;
-    updatePersonData: undefined | Reservation 
-}
+
 const LoginOrBookingControllerStore: LoginOrBookingControllerSliceType = {
     option: null, /*login 0, booking 1, updatePersonData 2*/
     formWindowVisibility: false,
