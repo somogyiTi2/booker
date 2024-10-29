@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IRootState, LoginOrBookingActions, AdminActions } from '../store';
 import UpdateBooking from '../services/UpdateBooking';
 import { DateDataType } from '../type/DataTypes';
-
+import Success from './Success';
 
 
 const Form = () => {
@@ -22,7 +22,7 @@ const Form = () => {
     const options = LoginOrBookingControllerStore.option;
     const adminUpdateData = LoginOrBookingControllerStore.updatePersonData;
     const adminSelector = useSelector((state: IRootState) => state.Admin.adminControllerDatas);
-
+    const [success, setSuccess] = useState<boolean>(false)
 
     const onClose = () => {
         dispatch(LoginOrBookingActions.FormWindowHandler());
@@ -122,7 +122,7 @@ const Form = () => {
                 }
                 break;
             case (1):
-                selectedDate && UpdateBooking({ selectedDate, email: enteredEmail, name: enteredName, phone: +enteredPhone, functionID: "booking" },)
+                selectedDate && UpdateBooking({ selectedDate, email: enteredEmail, name: enteredName, phone: +enteredPhone, functionID: "booking", plussFunction: () => setSuccess(true) },)
                 break;
             case (2):
                 if ('date' in adminSelector) {
@@ -179,10 +179,10 @@ const Form = () => {
         const sumTime = `${dateObj.getHours()}:${String(dateObj.getMinutes()).padStart(2, '0')}`;
         selectidDateView = <div className={style.date}><p>Dátum: {sumDate}</p><p>{sumTime}</p></div>;
     }
-    
+
     return (
         <>
-            
+            <Success success={success} setSuccess={setSuccess} /> 
             <ModalWindow show={showWindow} onClose={onClose}>
                 <form onSubmit={formSubmitHandler} className={style.form}>
                     {options === 0 && <h1>Bejelentkezés</h1>}
