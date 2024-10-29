@@ -9,7 +9,8 @@ const UpdateBooking = async ({
     phone,
     functionID,
     updateData,
-}:UpdateBookingPropsType
+    plussFunction
+}: UpdateBookingPropsType
 ) => {
     const id = new Date(selectedDate).toISOString().split('.')[0];
     const newReservation: Reservation = {
@@ -83,11 +84,11 @@ const UpdateBooking = async ({
                 },
             }
         );
-
+    
         if (!updateResponse.ok) {
             throw new Error('Failed to update booking.');
         }
-
+        plussFunction();
         console.log("Booking updated successfully!");
     } catch (error) {
         console.error("Something went wrong!", error);

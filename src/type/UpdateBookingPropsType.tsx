@@ -7,6 +7,7 @@ export interface UpdateBookingPropsType {
     phone: number;
     functionID: string;
     updateData?: Reservation;
+    plussFunction?: any;
 }
 
 export interface BookingData {

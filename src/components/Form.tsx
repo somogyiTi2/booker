@@ -8,6 +8,7 @@ import UpdateBooking from '../services/UpdateBooking';
 import { DateDataType } from '../type/DataTypes';
 
 
+
 const Form = () => {
     const adminData = {
         name: process.env.REACT_APP_ADMINNAME,
@@ -20,7 +21,8 @@ const Form = () => {
     const selectedDate = LoginOrBookingControllerStore.selectedDate;
     const options = LoginOrBookingControllerStore.option;
     const adminUpdateData = LoginOrBookingControllerStore.updatePersonData;
-    const adminSelector = useSelector((state: IRootState) => state.Admin.adminControllerDatas)
+    const adminSelector = useSelector((state: IRootState) => state.Admin.adminControllerDatas);
+
 
     const onClose = () => {
         dispatch(LoginOrBookingActions.FormWindowHandler());
@@ -130,11 +132,11 @@ const Form = () => {
                         name: enteredName,
                         phone: +enteredPhone,
                         functionID: "updateData",
-                        updateData: adminUpdateData
+                        updateData: adminUpdateData,
+                        plussFunction: () => dispatch(AdminActions.UpdateData(true))
                     });
-
                 }
-                dispatch(AdminActions.UpdateData(true))
+
                 break;
             default:
                 console.log("Something is wrong")
@@ -171,74 +173,77 @@ const Form = () => {
         // Month
         const month = (new Intl.DateTimeFormat("hu-HU", { month: "long" }).format(dateObj));
         const writeMonth = month.charAt(0).toUpperCase() + month.slice(1);
-
         //Date
         const sumDate = `${dateObj.getFullYear()}.${writeMonth}.${dateObj.getDate()}`;
         //Time
         const sumTime = `${dateObj.getHours()}:${String(dateObj.getMinutes()).padStart(2, '0')}`;
         selectidDateView = <div className={style.date}><p>Dátum: {sumDate}</p><p>{sumTime}</p></div>;
     }
-
+    
     return (
-        <ModalWindow show={showWindow} onClose={onClose}>
-            <form onSubmit={formSubmitHandler} className={style.form}>
-                {options === 0 && <h1>Bejelentkezés</h1>}
-                {selectedDate !== null && selectidDateView}
-                <label htmlFor='name'>Név:</label>
-                <input
-                    className={nameInputIsInvalid ? style.errorData : ''}
-                    type='text'
-                    id='name'
-                    onChange={nameInputChangeHandler}
-                    onBlur={nameInputBlurHandler}
-                    value={enteredName}
-                />
-                {nameInputIsInvalid && <p className={style.error}>Helytelen név!</p>}
+        <>
+            
+            <ModalWindow show={showWindow} onClose={onClose}>
+                <form onSubmit={formSubmitHandler} className={style.form}>
+                    {options === 0 && <h1>Bejelentkezés</h1>}
+                    {selectedDate !== null && selectidDateView}
+                    <label htmlFor='name'>Név:</label>
+                    <input
+                        className={nameInputIsInvalid ? style.errorData : ''}
+                        type='text'
+                        id='name'
+                        onChange={nameInputChangeHandler}
+                        onBlur={nameInputBlurHandler}
+                        value={enteredName}
+                    />
+                    {nameInputIsInvalid && <p className={style.error}>Helytelen név!</p>}
 
-                <label htmlFor='email'>E-mail:</label>
-                <input
-                    className={emailInputIsInvalid ? style.errorData : ''}
-                    type='text'
-                    id='email'
-                    onChange={emailInputChangeHandler}
-                    onBlur={emailInputBlurHandler}
-                    value={enteredEmail}
-                />
-                {emailInputIsInvalid && <p className={style.error}>Helytelen e-mail!</p>}
+                    <label htmlFor='email'>E-mail:</label>
+                    <input
+                        className={emailInputIsInvalid ? style.errorData : ''}
+                        type='text'
+                        id='email'
+                        onChange={emailInputChangeHandler}
+                        onBlur={emailInputBlurHandler}
+                        value={enteredEmail}
+                    />
+                    {emailInputIsInvalid && <p className={style.error}>Helytelen e-mail!</p>}
 
-                <label htmlFor='phone'>Telefon:</label>
-                <input
-                    className={phoneInputIsInvalid ? style.errorData : ''}
-                    type='text'
-                    id='phone'
-                    onChange={phoneInputChangeHandler}
-                    onBlur={phoneInputBlurHandler}
-                    value={enteredPhone}
-                />
+                    <label htmlFor='phone'>Telefon:</label>
+                    <input
+                        className={phoneInputIsInvalid ? style.errorData : ''}
+                        type='text'
+                        id='phone'
+                        onChange={phoneInputChangeHandler}
+                        onBlur={phoneInputBlurHandler}
+                        value={enteredPhone}
+                    />
 
-                {phoneInputIsInvalid && <p className={style.error}>Helytelen Telefonszám!</p>}
+                    {phoneInputIsInvalid && <p className={style.error}>Helytelen Telefonszám!</p>}
 
-                <div className={style.formActions}>
-                    <button onClick={() => onClose()} >
-                        Bezár
-                    </button>
-                    {options === 0 &&
-                        <button onClick={() => setSaveDataModalShow(true)} >
-                            Bejelentkezés
-                        </button>}
-                    {(options === 1 || options === 2) &&
-                        <button type="submit" disabled={!formIsValid} >
-                            {options === 1 && "Küldés"}  {options === 2 && "Frissít"}
+                    <div className={style.formActions}>
+                        <button onClick={() => onClose()} >
+                            Bezár
                         </button>
-                    }
+                        {options === 0 &&
+                            <button onClick={() => setSaveDataModalShow(true)} >
+                                Bejelentkezés
+                            </button>}
+                        {(options === 1 || options === 2) &&
+                            <button type="submit" disabled={!formIsValid} >
+                                {options === 1 && "Küldés"}  {options === 2 && "Frissít"}
+                            </button>
+                        }
 
-                </div>
-            </form>
-            {saveDataModalShow && (
-                <SaveDataModal update={setSaveData} showWindow={setSaveDataModalShow} show={saveDataModalShow} />
-            )}
+                    </div>
+                </form>
+                {saveDataModalShow && (
+                    <SaveDataModal update={setSaveData} showWindow={setSaveDataModalShow} show={saveDataModalShow} />
+                )}
 
-        </ModalWindow>
+
+            </ModalWindow>
+        </>
     );
 };
 

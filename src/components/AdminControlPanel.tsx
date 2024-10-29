@@ -38,8 +38,8 @@ const AdminControlPanel: React.FC<AdminControlPanelProps> = ({ show, data }) => 
               email: person?.email || "",
               phone: person?.phone || 123 ,
               functionID: "deletePerson",
+              plussFunction: dispatch(AdminActions.AdminControlerDataUpdate(data.reservations.filter((data) => data !== person)))
             });
-            dispatch(AdminActions.AdminControlerDataUpdate(data.reservations.filter((data) => data !== person)))
           }
           break;
 
