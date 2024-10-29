@@ -84,7 +84,8 @@ const Form = () => {
     const enteredNameIsValid =
         enteredName.trim() !== '' &&
         enteredName.trim().length > 3 &&
-        /^[a-zA-Z\s]+$/.test(enteredName);
+       /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s]+$/.test(enteredName);
+       
     const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
     /*email*/
     const enteredEmailIsValid =
