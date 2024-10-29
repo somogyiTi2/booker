@@ -94,6 +94,9 @@ const AdminControlPanel: React.FC<AdminControlPanelProps> = ({ show, data }) => 
 
         <div className={style.boxModule}>
           {hasProperty(data, 'date') && new Date(data.date).toISOString().slice(0, 10)}
+          <p>
+            {hasProperty(data, 'date') && new Date(data.date).toISOString().split(".")[0].split("T")[1]}
+          </p>
           {hasProperty(data, 'reservations') && data.reservations &&
             data.reservations.map((reservation: Reservation, index) => (
               <div key={index} className={style.oneLine}>
