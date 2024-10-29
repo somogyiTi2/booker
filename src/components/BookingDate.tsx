@@ -1,4 +1,4 @@
-import { DateDataType } from "../type/DataType";
+import { DateDataType } from "../type/DataTypes";
 import styles from '../style/BookingDate.module.css';
 import { useDispatch } from "react-redux";
 import { AdminActions, LoginOrBookingActions } from "../store";
@@ -33,7 +33,7 @@ const BookingDate = ({ data: appointment }: { data: DateDataType }) => {
     return (
         <button
             onClick={clickHandler}
-            className={`${styles.bookingButton} ${available ? styles.available : styles.unavailable}`}
+            className={`${styles.bookingButton} ${appointment.available ? styles.available : styles.unavailable}`}
         >
             <span>
                 {new Intl.DateTimeFormat("hu-HU", { dateStyle: 'full' }).format(startDate)}
@@ -46,7 +46,7 @@ const BookingDate = ({ data: appointment }: { data: DateDataType }) => {
                 <>
                     <hr />
                     {appointment.reservations.map((person, index) => (
-                        <span key={`${person.name}-${index}`}>{index+1} {person.name}</span>
+                        <span key={`${person.name}-${index}`}>{index + 1} {person.name}</span>
                     ))}
                 </>
             )}

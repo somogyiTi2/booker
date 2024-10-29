@@ -1,4 +1,4 @@
-import { DateDataType } from "./DataType";
+import { DateDataType } from "./DataTypes";
 
 export interface AdminControllerSliceType  {
     admin: boolean;

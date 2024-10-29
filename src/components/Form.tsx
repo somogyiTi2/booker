@@ -5,7 +5,8 @@ import SaveDataModal from './SaveDataModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState, LoginOrBookingActions, AdminActions } from '../store';
 import UpdateBooking from '../services/UpdateBooking';
-import { DateDataType } from '../type/DataType';
+import { DateDataType } from '../type/DataTypes';
+
 
 const Form = () => {
     const adminData = {
@@ -81,7 +82,8 @@ const Form = () => {
     const enteredNameIsValid =
         enteredName.trim() !== '' &&
         enteredName.trim().length > 3 &&
-        /^[a-zA-Z\s]+$/.test(enteredName);
+        /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s]+$/.test(enteredName);
+
     const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
     /*email*/
     const enteredEmailIsValid =

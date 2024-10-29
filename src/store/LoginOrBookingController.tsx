@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Reservation } from "../type/DataType";
+import { Reservation } from "../type/DataTypes";
 
 interface LoginOrBookingControllerSliceType {
     option: null | number;

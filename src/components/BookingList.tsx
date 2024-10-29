@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BookingDate from './BookingDate';
 import styles from '../style/BookingList.module.css';
-import { DateDataType } from '../type/DataType';
+import { DateDataType } from '../type/DataTypes';
 import { IRootState } from '../store';
 import { useSelector } from 'react-redux';
 
