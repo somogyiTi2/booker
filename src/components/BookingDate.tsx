@@ -28,7 +28,7 @@ const BookingDate = ({ data: appointment }: { data: DateDataType }) => {
     return (
         <button
             onClick={clickHandler}
-            className={`${styles.bookingButton} ${appointment.available ? styles.available : styles.unavailable}`}
+            className={`${styles.bookingButton} ${appointment.available ? styles.unavailable :  styles.available}`}
         >
             <span>
                 {new Intl.DateTimeFormat("hu-HU", { dateStyle: 'full' }).format(appointment.date)}
