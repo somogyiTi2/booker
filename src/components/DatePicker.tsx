@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import style from '../style/DatePicker.module.css';
-import DatePickerHandler, { DatePickerProps } from "react-datepicker";
+import DatePickerHandler from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import  { DatePickerProps } from '../type/DatePickerPropsType'
 
 const DatePicker: React.FC<DatePickerProps> = ({ setSelectedDate, selectedDate, today }) => {
     const [startDate, setStartDate] = useState<Date | null>(new Date());
