@@ -45,7 +45,6 @@ const CreateDate = () => {
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     dateFormat="Y/M/d"
-                    type="date"
                 />
                 <input type="time" id="appt" name="appt" defaultValue={startClock} onChange={(time) => setstartClock(time.target.value)} />
                 <input type='text' placeholder='Óra cím' onBlur={(event) => setNameClass(event.target.value)} />
