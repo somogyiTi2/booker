@@ -49,6 +49,7 @@ const AdminControlPanel: React.FC<AdminControlPanelProps> = ({ show, data }) => 
         break;
       default:
         console.log("something is wrong!", selectedFunction?.functionID, person)
+
     }
   };
 
@@ -71,8 +72,14 @@ const AdminControlPanel: React.FC<AdminControlPanelProps> = ({ show, data }) => 
         </select>
 
         <div className={style.boxModule}>
-          {hasProperty(data, 'date') &&
-            new Date(data.date).toISOString().slice(0, 10)}
+          {hasProperty(data, 'date') && new Date(data.date).toISOString().slice(0, 10)}
+          <p>
+            {hasProperty(data, 'date') && (() => {
+              const date = new Date(data.date);
+              return `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+            })()}
+          </p>
+
           {hasProperty(data, 'reservations') && data.reservations &&
             data.reservations.map((reservation: Reservation, index) => (
               <div key={reservation.phone || index} className={style.oneLine}>
