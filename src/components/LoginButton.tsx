@@ -8,6 +8,10 @@ const LoginButton = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const showWindow = useSelector((state: IRootState) => state.LoginOrBooking.formWindowVisibility);
 
+  useEffect(() => {
+    dispatch(LoginOrBookingActions.LoginHandler(isLoggedIn))
+  }, [isLoggedIn])
+
   const logInButtonHandler = () => {
     dispatch(LoginOrBookingActions.SelectedLogin({ login: 0 }));
   };
@@ -27,9 +31,9 @@ const LoginButton = () => {
   return (
     <>
       {isLoggedIn ? (
-       <button className={`${style.logout} ${style.logbutton}`} onClick={logOutButtonHandler}>
-       Log out
-     </button>
+        <button className={`${style.logout} ${style.logbutton}`} onClick={logOutButtonHandler}>
+          Log out
+        </button>
       ) : (
         <button className={`${style.login} ${style.logbutton}`} onClick={logInButtonHandler}  >
           Log in

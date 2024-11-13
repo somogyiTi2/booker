@@ -1,5 +1,6 @@
 import { Reservation } from "../type/DataTypes";
 import { BookingData, UpdateBookingPropsType } from "../type/UpdateBookingPropsType";
+import ProfilHandler from "./ProfilHandler";
 
 
 const UpdateBooking = async ({
@@ -43,7 +44,9 @@ const UpdateBooking = async ({
         switch (functionID) {
             case "booking":
                 if (isAvailable) {
+                    ProfilHandler(newReservation, id)
                     existingReservations.push(newReservation);
+                    
                 } else {
                     console.log("No more reservations can be added.");
                     return;

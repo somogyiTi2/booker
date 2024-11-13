@@ -7,6 +7,7 @@ const LoginOrBookingControllerStore: LoginOrBookingControllerSliceType = {
     formWindowVisibility: false,
     selectedDate: undefined,
     updatePersonData: undefined,
+    login:false,
 }
 
 const LoginOrBookingControllerSlice = createSlice({
@@ -30,6 +31,9 @@ const LoginOrBookingControllerSlice = createSlice({
             state.formWindowVisibility = !state.formWindowVisibility;
             state.updatePersonData = action.payload.person;
             state.option = action.payload.loginOrBooking;
+        },
+        LoginHandler(state,action){
+            state.login = action.payload;
         }
     }
 })
