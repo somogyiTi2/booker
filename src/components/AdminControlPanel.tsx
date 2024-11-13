@@ -31,12 +31,11 @@ const AdminControlPanel: React.FC<AdminControlPanelProps> = ({ show, data }) => 
       switch (selectedFunction?.functionID) {
         case 'DeletePerson':
           if (hasProperty(data, 'reservations') && data.reservations) {
-            /*TODO FIX*/
             UpdateBooking({
               selectedDate: new Date(data.date).toISOString(),
               name: person?.name || "",
               email: person?.email || "",
-              phone: person?.phone || 123 ,
+              phone: person?.phone || "" ,
               functionID: "deletePerson",
               plussFunction: dispatch(AdminActions.AdminControlerDataUpdate(data.reservations.filter((data) => data !== person)))
             });

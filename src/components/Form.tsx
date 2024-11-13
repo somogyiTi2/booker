@@ -122,7 +122,7 @@ const Form = () => {
                 }
                 break;
             case (1):
-                selectedDate && UpdateBooking({ selectedDate, email: enteredEmail, name: enteredName, phone: +enteredPhone, functionID: "booking", plussFunction: () => setSuccess(true) },)
+                selectedDate && UpdateBooking({ selectedDate, email: enteredEmail, name: enteredName, phone: enteredPhone, functionID: "booking", plussFunction: () => setSuccess(true) },)
                 break;
             case (2):
                 if ('date' in adminSelector) {
@@ -130,7 +130,7 @@ const Form = () => {
                         selectedDate: new Date((adminSelector as DateDataType).date).toISOString(),
                         email: enteredEmail,
                         name: enteredName,
-                        phone: +enteredPhone,
+                        phone: enteredPhone,
                         functionID: "updateData",
                         updateData: adminUpdateData,
                         plussFunction: () => dispatch(AdminActions.UpdateData(true))

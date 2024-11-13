@@ -4,7 +4,7 @@ export interface UpdateBookingPropsType {
     selectedDate: string;
     name: string;
     email: string;
-    phone: number;
+    phone: string;
     functionID: string;
     updateData?: Reservation;
     plussFunction?: any;
