@@ -2,7 +2,8 @@ const CreateTime = async <T extends { finishTime: Date, nameClass: string, start
   finishTime, nameClass, startDate, teamNumber, dispatchUpdate,
 }: T) => {
   try {
-    const formattedDate = startDate.toISOString().split('.')[0];
+    const utcDate = new Date(startDate);
+    const formattedDate = new Date(utcDate.getTime() - utcDate.getTimezoneOffset() * 60000).toISOString().split('.')[0];
     const response = await fetch(
       `${process.env.REACT_APP_API_LINK}/Time/${formattedDate}.json`, 
       {

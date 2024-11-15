@@ -13,7 +13,9 @@ const UpdateBooking = async ({
     plussFunction
 }: UpdateBookingPropsType
 ) => {
-    const id = new Date(selectedDate).toISOString().split('.')[0];
+    const utcDate = new Date(selectedDate);
+    const id = new Date(utcDate.getTime() - utcDate.getTimezoneOffset() * 60000).toISOString().split('.')[0];
+    
     const newReservation: Reservation = {
         name,
         email,
@@ -25,6 +27,7 @@ const UpdateBooking = async ({
         const response = await fetch(
             `${process.env.REACT_APP_API_LINK}/Time/${id}.json`
         );
+        
         if (!response.ok) {
             throw new Error('Failed to fetch existing booking data.');
         }
@@ -46,7 +49,6 @@ const UpdateBooking = async ({
                 if (isAvailable) {
                     ProfilHandler(newReservation, id)
                     existingReservations.push(newReservation);
-                    
                 } else {
                     console.log("No more reservations can be added.");
                     return;
@@ -87,7 +89,7 @@ const UpdateBooking = async ({
                 },
             }
         );
-    
+
         if (!updateResponse.ok) {
             throw new Error('Failed to update booking.');
         }

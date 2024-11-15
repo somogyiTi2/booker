@@ -41,7 +41,7 @@ const BookingList: React.FC<{ date: Date, numberofDays: number, bookableDates: D
         <div className={styles.bookingList}>
             {visibleDates.map((day, index) => (
                 <div key={index} className={styles.bookingDayList}>
-                    {day.date.toDateString()}
+                    {day.date.toISOString().split("T")[0]}
                     <p>
                         {selectedTime(bookableDates, day.date).map((data, index) => (
                             (data.available || fullAdmin) && (

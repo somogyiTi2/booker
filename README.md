@@ -26,8 +26,7 @@
 ### Redux Timeout
 
 ## Data Encryption
-- Key is stored in the `.env` file.
-
+- Key is stored in the `.env` file.✅
 /*other branch*/
 ## API Security
 - Key is stored in the `.env` file.
